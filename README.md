@@ -1,2 +1,2 @@
 # WSL-Desktop
-Running Linux Desktop Environment on Windows, WSL2 Only
+Running Native Linux Desktop Environment on Windows (WSL2 Only), ChromeOS
