@@ -3,20 +3,20 @@
 # DEFAULT
 DEFAULT_RESOLUTION="1024x768"
 DEFAULT_DISPLAY_NUMBER=2
-DEFAULT_DESKTOP_ENV="startxfce4"
+DEFAULT_XSTARTUP="startxfce4"
 
 function print_help {
-  echo "Usage: $0 [-r resolution] [-d display_number] [-e desktop_environment]"
+  echo "Usage: $0 [-r resolution] [-d display_number] [-x xstartup]"
   echo "       $0 --help"
   echo
   echo "Options:"
-  echo "  -r, --resolution           Screen resolution (e.g., 1280x720)"
+  echo "  -r, --resolution    Screen resolution (e.g., 1280x720)"
   echo "  -d, --display-number       Display number (e.g., 2)"
-  echo "  -e, --desktop-environment  Desktop environment to start (e.g., startxfce4)"
-  echo "  --help                     Show this help message"
+  echo "  -x, --xstartup      Startup command to launch (e.g., startxfce4)"
+  echo "  --help              Show this help message"
   echo
   echo "Example:"
-  echo "  $0 -r 1280x720 -d 2 -e startxfce4"
+  echo "  $0 -r 1280x720 -d 2 -x startxfce4"
 }
 
 while [[ "$1" != "" ]]; do
@@ -29,9 +29,9 @@ while [[ "$1" != "" ]]; do
       shift
       DISPLAY_NUMBER=$1
       ;;
-    -e | --desktop-environment )
+    -x | --xstartup )
       shift
-      DESKTOP_ENV=$1
+      XSTARTUP=$1
       ;;
     --help )
       print_help
@@ -48,15 +48,15 @@ done
 
 RESOLUTION=${RESOLUTION:-$DEFAULT_RESOLUTION}
 DISPLAY_NUMBER=${DISPLAY_NUMBER:-$DEFAULT_DISPLAY_NUMBER}
-DESKTOP_ENV=${DESKTOP_ENV:-$DEFAULT_DESKTOP_ENV}
+XSTARTUP=${XSTARTUP:-$DEFAULT_XSTARTUP}
 
 if ! command -v Xephyr &> /dev/null; then
   echo "Error: Xephyr is not installed. Please install it first."
   exit 1
 fi
 
-if ! command -v $DESKTOP_ENV &> /dev/null; then
-  echo "Error: Desktop environment '$DESKTOP_ENV' is not installed or not found."
+if ! command -v $XSTARTUP &> /dev/null; then
+  echo "Error: Startup command '$XSTARTUP' is not installed or not found."
   exit 1
 fi
 
@@ -65,20 +65,10 @@ Xephyr :$DISPLAY_NUMBER -resizeable -screen $RESOLUTION &
 
 sleep 2
 
-echo "Starting desktop environment: $DESKTOP_ENV..."
-DISPLAY=:$DISPLAY_NUMBER $DESKTOP_ENV &
+echo "Starting startup command: $XSTARTUP..."
+DISPLAY=:$DISPLAY_NUMBER $XSTARTUP &
 
-LOG_FILE="xephyr_$DISPLAY_NUMBER.log"
-echo "Logging to $LOG_FILE..."
-{
-  echo "Xephyr started with the following settings:"
-  echo "Resolution: $RESOLUTION"
-  echo "Display Number: $DISPLAY_NUMBER"
-  echo "Desktop Environment: $DESKTOP_ENV"
-  echo "Timestamp: $(date)"
-} >> $LOG_FILE
-
-echo "Xephyr and $DESKTOP_ENV started successfully on DISPLAY :$DISPLAY_NUMBER."
+echo "Xephyr and $XSTARTUP started successfully on DISPLAY :$DISPLAY_NUMBER."
 echo "You can adjust the window size dynamically."
 cat <<EOF
 WSL-Desktop, 

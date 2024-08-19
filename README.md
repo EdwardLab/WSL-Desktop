@@ -5,11 +5,11 @@ WSL native display, support for dynamically adjusted windows (resizeable), sound
 
 # Usage
 ```bash
-./wd.sh [-r resolution] [-d display_number] [-e desktop_environment] [--help]
+./wd.sh [-r resolution] [-d display_number] [-x xstartup] [--help]
 ```
 Example:
 ```
-./wd.sh -r 1280x720 -d 2 -e startxfce4
+./wd.sh -r 1280x720 -d 2 -x startxfce4
 ```
 ## Default Value
 Edit wd.sh:
