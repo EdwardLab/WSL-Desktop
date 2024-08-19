@@ -81,6 +81,7 @@ echo "Logging to $LOG_FILE..."
 echo "Xephyr and $DESKTOP_ENV started successfully on DISPLAY :$DISPLAY_NUMBER."
 echo "You can adjust the window size dynamically."
 cat <<EOF
+WSL-Desktop, 
 Powered by: EdwardLab/WSL-Desktop (https://github.com/EdwardLab/WSL-Desktop)
 MIT LICENSE
 EOF
