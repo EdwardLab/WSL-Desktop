@@ -2,7 +2,7 @@
 Running Native Linux Desktop Environment on Windows (WSL2 Only), ChromeOS
 
 WSL native display, support for dynamically adjusted windows (resizeable), sound and 3D support, based on Xephyr    
-
+![WD](wd.png)
 # Usage
 ```bash
 ./wd.sh [-r resolution] [-d display_number] [-e desktop_environment] [--help]
